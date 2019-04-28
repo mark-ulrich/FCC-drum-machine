@@ -1,33 +1,7 @@
 @import 'colors';
 
 // Mixins
-@mixin padStyle {
-  color: $pad-foreground;
-  background: $pad-background;
-
-  border: 1px rgba($primary-color, 0.5) solid;
-  border-radius: 4px;
-
-  box-shadow: $primary-color 1px 1px 8px;
-
-  padding: 1.4rem 0.1rem;
-
-  &:hover {
-    color: lighten($primary-color, 10);
-    background: lighten($pad-background, 1);
-  }
-
-  &:active {
-    background: radial-gradient(
-      closest-side,
-      lighten($pad-background, 20),
-      $pad-background
-    );
-    color: $pad-foreground-active;
-
-    box-shadow: $primary-color 1px 1px 2px;
-  }
-}
+// @mixin padStyle {
 
 // General
 * {
@@ -36,7 +10,8 @@
 }
 
 body {
-  background: $page-background;
+  // background: $page-background;
+  background: #202027;
 }
 
 // App global
@@ -75,23 +50,61 @@ body {
 }
 
 // Pads
+.pad {
+  padding: 0.7rem 0rem;
+
+  color: $pad-foreground;
+  background: $pad-background;
+
+  border: 1px rgba($primary-color, 0.5) solid;
+  border-radius: 4px;
+
+  text-align: center;
+  vertical-align: center;
+
+  cursor: pointer;
+}
+
+.padPoweredOn {
+  transition: all 1s;
+  box-shadow: $primary-color 1px 1px 8px;
+
+  &:hover {
+    transition: none;
+    color: lighten($primary-color, 10);
+    background: lighten($pad-background, 1);
+  }
+
+  &:active {
+    background: radial-gradient(
+      closest-side,
+      lighten($pad-background, 20),
+      $pad-background
+    );
+    color: $pad-foreground-active;
+
+    box-shadow: $primary-color 1px 1px 2px;
+  }
+}
+.padPoweredOff {
+  transition: all 1s;
+}
 .pads-container {
   display: grid;
   margin: 0.6rem;
   grid-gap: 0.6rem;
-  width: 400px;
+  width: 370px;
   grid-template-columns: repeat(3, 1fr);
 
   border: 1px rgba($primary-color, 0.5) groove;
   border-radius: 4px;
-  padding: 0.4rem;
+  padding: 1rem 1rem;
 
   .drum-pad {
-    @include padStyle();
-    font-size: 3rem;
+    // @include padStyle();
+    font-size: 2.5rem;
     // margin: 0.5rem;
     // padding: 1.4rem 0;
-    cursor: pointer;
     text-align: center;
     vertical-align: center;
   }
@@ -105,6 +118,7 @@ body {
 
   #display {
     width: 12rem;
+    height: 1.8rem;
     margin: 1rem;
     padding: 0.3rem 0.9rem;
 
@@ -119,14 +133,20 @@ body {
   }
 
   .volume-controls {
+    width: 220px;
     text-align: center;
-    margin: 2rem 0.6rem;
+    margin: 2rem auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0.6rem;
+    grid-gap: 1rem;
     i {
-      @include padStyle();
-      cursor: pointer;
+      // @include padStyle();
     }
+  }
+
+  .power-button {
+    // @include padStyle();
+    margin: auto;
+    width: 90px;
   }
 }

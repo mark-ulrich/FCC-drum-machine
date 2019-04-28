@@ -4,6 +4,10 @@ import Header from './components/Header';
 import Pads from './components/Pads';
 import Display from './components/Display';
 import VolumeControls from './components/VolumeControls';
+import Power from './components/Power';
+
+const DefaultDisplayText = 'BeatMachine';
+const DefaultVolume = 10;
 
 export class BeatMachineApp extends Component {
   constructor(props) {
@@ -59,8 +63,8 @@ export class BeatMachineApp extends Component {
 
     this.state = {
       poweredOn: true,
-      displayText: 'Display',
-      volume: 10,
+      displayText: DefaultDisplayText,
+      volume: DefaultVolume,
       isMuted: false
     };
   }
@@ -72,6 +76,17 @@ export class BeatMachineApp extends Component {
       const keys = this.bank.map(elem => elem.key);
       if (keys.indexOf(id) >= 0) this.playSound(id);
     });
+  };
+
+  togglePower = () => {
+    const poweredOn = this.state.poweredOn ? false : true;
+    this.setState({
+      poweredOn,
+      displayText: DefaultDisplayText,
+      isMuted: false,
+      volume: DefaultVolume
+    });
+    console.log('Power: ', poweredOn);
   };
 
   playSound = key => {
@@ -113,6 +128,8 @@ export class BeatMachineApp extends Component {
   };
 
   toggleMute = () => {
+    if (!this.state.poweredOn) return;
+
     const isMuted = this.state.isMuted ? false : true;
     // console.log('Setting isMuted: ', isMuted);
     this.setState({
@@ -133,10 +150,24 @@ export class BeatMachineApp extends Component {
     return (
       <div id='drum-machine' onKeyPress={this.onKeyPress}>
         <Header />
-        <Pads bank={this.bank} playSound={this.playSound} />
+        <Pads
+          bank={this.bank}
+          playSound={this.playSound}
+          isPoweredOn={this.state.poweredOn}
+        />
         <div className='controls'>
-          <Display displayText={this.state.displayText} />
-          <VolumeControls volumeMethods={this.volumeMethods} />
+          <Display
+            displayText={this.state.displayText}
+            isPoweredOn={this.state.poweredOn}
+          />
+          <VolumeControls
+            volumeMethods={this.volumeMethods}
+            isPoweredOn={this.state.poweredOn}
+          />
+          <Power
+            togglePower={this.togglePower}
+            isPoweredOn={this.state.poweredOn}
+          />
         </div>
       </div>
     );
