@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
+import Header from './components/Header';
 import Pads from './components/Pads';
 import Display from './components/Display';
+import VolumeControls from './components/VolumeControls';
 
 export class BeatMachineApp extends Component {
   constructor(props) {
@@ -9,22 +11,22 @@ export class BeatMachineApp extends Component {
 
     this.bank = [
       {
-        id: 'Heater1',
+        id: 'Heater 1',
         clip: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3',
         key: 'Q'
       },
       {
-        id: 'Heater2',
+        id: 'Heater 2',
         clip: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3',
         key: 'W'
       },
       {
-        id: 'Heater3',
+        id: 'Heater 3',
         clip: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3',
         key: 'E'
       },
       {
-        id: 'Heater4',
+        id: 'Heater 4',
         clip: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3',
         key: 'A'
       },
@@ -56,7 +58,10 @@ export class BeatMachineApp extends Component {
     ];
 
     this.state = {
-      displayText: ''
+      poweredOn: true,
+      displayText: 'Display',
+      volume: 10,
+      isMuted: false
     };
   }
 
@@ -70,12 +75,18 @@ export class BeatMachineApp extends Component {
   };
 
   playSound = key => {
-    // console.log(key);
-    document.getElementById(key).play();
-    const clipID = this.bank
+    if (!this.state.poweredOn || this.state.isMuted) return;
+
+    // Set correct volume and play clip
+    const clip = document.getElementById(key);
+    clip.volume = this.state.volume / 100;
+    clip.play();
+
+    // Update display with clip name
+    const clipName = this.bank
       .filter(clip => clip.key === key)
-      .map(clip => clip.id);
-    this.setDisplayText(clipID);
+      .map(clip => clip.id)[0];
+    this.setDisplayText(clipName);
   };
 
   setDisplayText = displayText => {
@@ -84,11 +95,49 @@ export class BeatMachineApp extends Component {
     });
   };
 
+  setVolume = volume => {
+    this.setState({
+      volume
+    });
+    this.setDisplayText(`Volume: ${volume}`);
+  };
+
+  setVolumeUp = () => {
+    const volume = Math.min(this.state.volume + 1, 10);
+    this.setVolume(volume);
+  };
+
+  setVolumeDown = () => {
+    const volume = Math.max(this.state.volume - 1, 0);
+    this.setVolume(volume);
+  };
+
+  toggleMute = () => {
+    const isMuted = this.state.isMuted ? false : true;
+    // console.log('Setting isMuted: ', isMuted);
+    this.setState({
+      isMuted
+    });
+    if (isMuted) this.setDisplayText('MUTED');
+    else this.setDisplayText(`Volume: ${this.state.volume}`);
+  };
+
+  // Pack the volume control methods for easier transfer as property
+  volumeMethods = {
+    volumeUp: this.setVolumeUp,
+    volumeDown: this.setVolumeDown,
+    volumeMute: this.toggleMute
+  };
+
   render() {
     return (
       <div id='drum-machine' onKeyPress={this.onKeyPress}>
+        <Header />
         <Pads bank={this.bank} playSound={this.playSound} />
-        <Display displayText={this.state.displayText} />
+        <div className='controls'>
+          <Display displayText={this.state.displayText} />
+          <VolumeControls volumeMethods={this.volumeMethods} />
+        </div>
       </div>
     );
   }

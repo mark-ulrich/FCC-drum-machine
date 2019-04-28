@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 
 export class Display extends Component {
   render() {
-    return (
-      <div id='display'>
-        <h1>{this.props.displayText}</h1>
-      </div>
-    );
+    return <div id='display'>{this.props.displayText}</div>;
   }
 }
 
