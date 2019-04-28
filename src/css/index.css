@@ -1,6 +1,7 @@
 * {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  overflow: hidden; }
 
 body {
   background: #202027; }
@@ -96,3 +97,43 @@ body {
   .controls .power-button {
     margin: auto;
     width: 90px; }
+
+@media screen and (max-width: 775px) {
+  #drum-machine {
+    max-width: 80%; }
+  .pads-container {
+    flex-basis: 45%; }
+  .controls {
+    flex-basis: 45%; } }
+
+@media screen and (max-width: 690px) {
+  #drum-machine {
+    margin-top: 1rem;
+    flex-direction: column; }
+  .app-header {
+    width: 100%;
+    margin: 0 auto 0.6rem;
+    text-align: center; }
+    .app-header h1 {
+      padding: 0.2rem 1rem;
+      margin: 0 auto;
+      font-size: 2rem; }
+  .pads-container {
+    margin: auto;
+    width: 90%; }
+    .pads-container .pad {
+      font-size: 1.5rem; }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; }
+    .controls #display {
+      flex-basis: 90%;
+      margin-bottom: 0.6rem; }
+    .controls .volume-controls {
+      margin: 0.6rem auto;
+      flex-basis: 70%; }
+    .controls .power-button {
+      margin: 0.6rem auto;
+      flex-basis: 20%;
+      font-size: 0.6rem; } }
