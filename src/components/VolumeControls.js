@@ -8,17 +8,17 @@ export class VolumeControls extends Component {
       <div className='volume-controls'>
         <i
           id='volume-down'
-          className='fas fa-volume-mute fa-3x'
+          className='fas fa-volume-mute fa-2x'
           onClick={volumeMute}
         />
         <i
           id='volume-mute'
-          className='fas fa-volume-down fa-3x'
+          className='fas fa-volume-down fa-2x'
           onClick={volumeDown}
         />
         <i
           id='volume-up'
-          className='fas fa-volume-up fa-3x'
+          className='fas fa-volume-up fa-2x'
           onClick={volumeUp}
         />
       </div>

@@ -1,0 +1,11 @@
+$primary-color: #cf5c36;
+$secondary-color: #050517;
+$tertiary-color: #efc88b;
+$quaternary-color: #f4e3b2;
+$quinary-color: #d3d5d7;
+
+$page-background: darken($primary-color, 30);
+$app-background: $secondary-color;
+$pad-background: darken($primary-color, 45);
+$pad-foreground: rgba($quaternary_color, 0.8);
+$pad-foreground-active: lighten(rgba($primary-color, 0.8), 5);

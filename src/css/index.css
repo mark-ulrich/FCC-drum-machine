@@ -22,7 +22,8 @@ body {
   margin: 1rem;
   font-size: 1.4rem;
   background: #110704;
-  border-radius: 8px; }
+  border: 1px rgba(207, 92, 54, 0.5) groove;
+  border-radius: 4px; }
   .app-header h1 {
     margin-left: 3rem;
     font-family: 'Rajdhani';
@@ -40,42 +41,57 @@ body {
   border: 1px rgba(207, 92, 54, 0.5) groove;
   border-radius: 4px;
   padding: 0.4rem; }
-
-.drum-pad {
-  background: #190b06;
-  color: rgba(244, 227, 178, 0.8);
-  font-size: 3rem;
-  padding: 1.4rem 0;
-  cursor: pointer;
-  text-align: center;
-  vertical-align: center;
-  border-radius: 4px;
-  border: 1px rgba(207, 92, 54, 0.5) solid;
-  box-shadow: #cf5c36 1px 1px 8px; }
-  .drum-pad:active {
-    background: radial-gradient(closest-side, #6c2e1a, #190b06); }
+  .pads-container .drum-pad {
+    color: rgba(244, 227, 178, 0.8);
+    background: #190b06;
+    border: 1px rgba(207, 92, 54, 0.5) solid;
+    border-radius: 4px;
+    box-shadow: #cf5c36 1px 1px 8px;
+    padding: 1.4rem 0.1rem;
+    font-size: 3rem;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: center; }
+    .pads-container .drum-pad:hover {
+      color: #d97d5f;
+      background: #1e0d07; }
+    .pads-container .drum-pad:active {
+      background: radial-gradient(closest-side, #6c2e1a, #190b06);
+      color: rgba(212, 109, 75, 0.8);
+      box-shadow: #cf5c36 1px 1px 2px; }
 
 .controls {
   border: 1px rgba(207, 92, 54, 0.5) groove;
   border-radius: 4px;
   margin: 0.6rem auto; }
-
-#display {
-  width: 12rem;
-  margin: 1rem;
-  padding: 0.3rem 0.9rem;
-  background: #220e08;
-  color: rgba(207, 92, 54, 0.8);
-  font-size: 1.4rem;
-  font-weight: 400;
-  border-radius: 4px;
-  border: 2px rgba(128, 55, 31, 0.6) groove; }
-
-.volume-controls {
-  text-align: center; }
-  .volume-controls i {
+  .controls #display {
+    width: 12rem;
     margin: 1rem;
-    color: rgba(207, 92, 54, 0.7);
-    cursor: pointer; }
-    .volume-controls i:active {
-      color: rgba(212, 109, 75, 0.8); }
+    padding: 0.3rem 0.9rem;
+    background: #220e08;
+    color: rgba(207, 92, 54, 0.8);
+    font-size: 1.4rem;
+    font-weight: 400;
+    border-radius: 4px;
+    border: 2px rgba(128, 55, 31, 0.6) groove; }
+  .controls .volume-controls {
+    text-align: center;
+    margin: 2rem 0.6rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0.6rem; }
+    .controls .volume-controls i {
+      color: rgba(244, 227, 178, 0.8);
+      background: #190b06;
+      border: 1px rgba(207, 92, 54, 0.5) solid;
+      border-radius: 4px;
+      box-shadow: #cf5c36 1px 1px 8px;
+      padding: 1.4rem 0.1rem;
+      cursor: pointer; }
+      .controls .volume-controls i:hover {
+        color: #d97d5f;
+        background: #1e0d07; }
+      .controls .volume-controls i:active {
+        background: radial-gradient(closest-side, #6c2e1a, #190b06);
+        color: rgba(212, 109, 75, 0.8);
+        box-shadow: #cf5c36 1px 1px 2px; }
