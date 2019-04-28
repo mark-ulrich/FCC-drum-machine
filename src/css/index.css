@@ -43,7 +43,7 @@ body {
   cursor: pointer; }
 
 .padPoweredOn {
-  transition: all 1s;
+  transition: all 0.5s;
   box-shadow: #cf5c36 1px 1px 8px; }
   .padPoweredOn:hover {
     transition: none;

@@ -1,8 +1,5 @@
 @import 'colors';
 
-// Mixins
-// @mixin padStyle {
-
 // General
 * {
   margin: 0;
@@ -66,7 +63,7 @@ body {
 }
 
 .padPoweredOn {
-  transition: all 1s;
+  transition: all 0.5s;
   box-shadow: $primary-color 1px 1px 8px;
 
   &:hover {

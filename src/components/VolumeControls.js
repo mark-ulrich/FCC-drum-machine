@@ -10,12 +10,12 @@ export class VolumeControls extends Component {
     return (
       <div className='volume-controls'>
         <i
-          id='volume-down'
+          id='volume-mute'
           className={`fas fa-volume-mute fa-2x pad ${padPowerClass}`}
           onClick={volumeMute}
         />
         <i
-          id='volume-mute'
+          id='volume-down'
           className={`fas fa-volume-down fa-2x pad ${padPowerClass}`}
           onClick={volumeDown}
         />

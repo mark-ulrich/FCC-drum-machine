@@ -7,11 +7,23 @@ import VolumeControls from './components/VolumeControls';
 import Power from './components/Power';
 
 const DefaultDisplayText = 'BeatMachine';
+const DefaultMutedText = 'MUTED';
 const DefaultVolume = 10;
+
+const ResetDisplayTimeout = 2500;
 
 export class BeatMachineApp extends Component {
   constructor(props) {
     super(props);
+
+    this.displayTimeout = null;
+
+    this.keyMap = {
+      P: this.togglePower,
+      '<': this.setVolumeDown,
+      '>': this.setVolumeUp,
+      M: this.toggleMute
+    };
 
     this.bank = [
       {
@@ -70,14 +82,20 @@ export class BeatMachineApp extends Component {
   }
 
   componentDidMount = () => {
+    // Handle KeyPress Events
     document.addEventListener('keypress', e => {
-      // console.log(e.key);
+      // Pads
       const id = e.key.toUpperCase();
       const keys = this.bank.map(elem => elem.key);
       if (keys.indexOf(id) >= 0) this.playSound(id);
+      // Other hotkeys
+      else if (Object.keys(this.keyMap).indexOf(id) >= 0) {
+        this.keyMap[id]();
+      }
     });
   };
 
+  // Toggle power on/off
   togglePower = () => {
     const poweredOn = this.state.poweredOn ? false : true;
     this.setState({
@@ -86,9 +104,9 @@ export class BeatMachineApp extends Component {
       isMuted: false,
       volume: DefaultVolume
     });
-    console.log('Power: ', poweredOn);
   };
 
+  // Play sound from associated HTML <audio> element
   playSound = key => {
     if (!this.state.poweredOn || this.state.isMuted) return;
 
@@ -104,10 +122,23 @@ export class BeatMachineApp extends Component {
     this.setDisplayText(clipName);
   };
 
+  // Set the display text. Will revert to either 'MUTED' or default state after
+  //  a given timeout.
   setDisplayText = displayText => {
-    this.setState({
-      displayText
-    });
+    this.setState({ displayText });
+
+    // If timeout is active, clear it first
+    if (this.displayTimeout) window.clearTimeout(this.displayTimeout);
+    this.displayTimeout = setTimeout(
+      () =>
+        this.setState({
+          displayText:
+            displayText === DefaultMutedText || this.isMuted
+              ? DefaultMutedText
+              : DefaultDisplayText
+        }),
+      ResetDisplayTimeout
+    );
   };
 
   setVolume = volume => {
@@ -135,7 +166,7 @@ export class BeatMachineApp extends Component {
     this.setState({
       isMuted
     });
-    if (isMuted) this.setDisplayText('MUTED');
+    if (isMuted) this.setDisplayText(DefaultMutedText);
     else this.setDisplayText(`Volume: ${this.state.volume}`);
   };
 

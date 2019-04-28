@@ -11,6 +11,7 @@ export class Power extends Component {
         <i
           className='fas fa-power-off fa-3x'
           onClick={this.props.togglePower}
+          id='power-button'
         />
       </div>
     );
